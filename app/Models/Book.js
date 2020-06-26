@@ -12,7 +12,7 @@ class Book extends Model {
   }
 
   static get visible () {
-    return ['title', 'isbn', 'author', 'created_at'];
+    return ['id', 'title', 'isbn', 'author', 'created_at'];
   }
 
   static get dates () {

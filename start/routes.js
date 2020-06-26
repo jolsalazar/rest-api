@@ -19,30 +19,24 @@ Route.on('/').render('welcome')
 
 
 Route.group(() => {
-  Route.post('login', 'AuthController.login');
-  Route.post('register', 'AuthController.register').validator('StoreUser');
 
-  Route.get('profile', 'AuthController.profile').middleware(['auth:api']);
 
-  Route.post('revokeUserToken', 'AuthController.revokeUserToken').middleware(['auth:api']);
+  //Route.resource('books', 'BookController');
 
-  Route.resource('books', 'BookController');
+  Route.get('/books', 'BookController.index');
+  Route.get('/books/:id', 'BookController.show');
+  Route.post('/books', 'BookController.store');
+  Route.put('/books/:id', 'BookController.update');
+  Route.delete('/books/:id', 'BookController.destroy');
+
+
   Route.resource('courses', 'CourseController')
   Route.get('/courses/:id/students', 'CourseController.showWithStudents')
   Route.get('/courses/:id/raw', 'CourseController.showWithStudentsRaw')
 
 
-  Route.resource('students', 'StudentController')
+  //Route.resource('students', 'StudentController')
 
 }).prefix('api/v1');
 
 
-Route.group(() => {
-  Route.resource('books', 'V2/BookController').middleware(['auth:api'])
-    .validator(new Map([
-      ['books.store', 'StoreBook'],
-      ['books.update', 'UpdateBook'],
-    ]));
-
-  Route.get("books/paginated/:offset", 'V2/BookController.paginated').middleware(['auth:api']);
-}).prefix('api/v2');

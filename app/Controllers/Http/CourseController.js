@@ -27,7 +27,7 @@ class CourseController {
     return response.json(course);
   }
 
-  async showWithStudents ({ params, request, response }) {
+  async showWithStudents ({ params, response }) {
     let row = await Course
                       .query()
                       .whereRaw('id = ?', [params.id])
